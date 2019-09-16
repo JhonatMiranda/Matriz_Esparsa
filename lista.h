@@ -6,7 +6,7 @@
 //functions
 void makeheadmain(List *lista);
 void makeheadrow(List *lista);
-void makeheadrow(List *lista);
+void makeheadcol(List *lista);
 
 //structs
 

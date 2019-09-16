@@ -16,7 +16,7 @@ void makeheadrow(List *lista){
   lista->ultimo->below->i=-1;
 }
 //cria celula cabeça de lista de coluna com indice da coluna -1
-void makeheadrow(List *lista){
+void makeheadcol(List *lista){
   lista->ultimo->right=(Apontador) malloc(sizeof(Celula));
   lista->ultimo=lista->ultimo->right;
   lista->ultimo->right=lista->primeiro;
