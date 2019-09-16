@@ -3,6 +3,10 @@
 
 #ifndef LISTA_H_
 #define LISTA_H_
+//functions
+void listinsert(List *lista){
+
+//structs
 
 typedef struct Knot *Apontador;
 typedef int Row;
@@ -16,6 +20,11 @@ typedef struct Knot{
   Col j;
   Item x;
 }Celula;
+
+typedef struct{
+  Apontador primeiro;
+  Apontador ultimo;
+}List;
 
 
 
