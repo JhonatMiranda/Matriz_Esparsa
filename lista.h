@@ -4,7 +4,9 @@
 #ifndef LISTA_H_
 #define LISTA_H_
 //functions
-void listinsert(List *lista){
+void makeheadmain(List *lista);
+void makeheadrow(List *lista);
+void makeheadrow(List *lista);
 
 //structs
 
@@ -21,7 +23,7 @@ typedef struct Knot{
   Item x;
 }Celula;
 
-typedef struct{
+typedef struct Lista{
   Apontador primeiro;
   Apontador ultimo;
 }List;
