@@ -1,5 +1,5 @@
 #include "header.h"
-#include "lista.h"
+#include "matrix.h"
 
 int main(){
   Matriz_Esparsa x;
