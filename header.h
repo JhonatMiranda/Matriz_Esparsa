@@ -4,6 +4,6 @@
 #ifndef HEADER_H_
 #define HEADER_H_
 
-_Bool mainMenu();
+void mainMenu();
 
 #endif
