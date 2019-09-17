@@ -10,8 +10,8 @@ typedef double Item;
 typedef struct no* PCelula;
 
 typedef struct no{
-  struct no *right;
-  struct no *below;
+  PCelula right;
+  PCelula below;
   Row i;
   Col j;
   Item x;
