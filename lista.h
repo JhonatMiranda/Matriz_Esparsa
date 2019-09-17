@@ -1,37 +1,63 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#ifndef LISTA_H_
-#define LISTA_H_
-//functions
-void makeheadmain(List *lista);
-void makeheadrow(List *lista);
-void makeheadcol(List *lista);
+#ifndef MATRIX_H_
+#define MATRIX_H_
 
-//structs
-
-typedef struct Knot *Apontador;
 typedef int Row;
 typedef int Col;
-typedef int Item;
+typedef double Item;
+typedef struct no* Apontador;
 
-typedef struct Knot{
-  struct Knot *right;
-  struct Knot *below;
+typedef struct no{
+  struct no *right;
+  struct no *below;
   Row i;
   Col j;
   Item x;
 }Celula;
 
+//iniciar todas as células cabeça
+void initMatrix(int rows, int cols, Celula *init){
+  int i, j;
+  struct no temp*;
+  temp = init->right;
+  //preencho linhas-cabeça
+  for(i = 0; i<rows; i++){
+    if(i!=rows-1){
+      temp-> right = (Apontador) malloc(sizeof(Celula));
+      temp->i = -1;
+      temp = temp->right;
+    }
+    else{
+      temp->right = init;
+    }
+  }
+
+  temp = init->below;
+  //preencho colunas-cabeça
+  for(i = 0; i<cols; i++){
+    if(i!=cols-1){
+      temp-> below = (Apontador) malloc(sizeof(Celula));
+      temp->j = -1;
+      temp = temp->below;
+    }
+    else{
+      temp->below = init;
+  }
+}
+
+//struct para matriz esparsa(sujeito a alterações)
+typedef struct{
+
+  Celula init;
+
+}Matriz_Esparsa;
+
 typedef struct Lista{
-  Apontador primeiro;
-  Apontador ultimo;
+  Apontador Primeiro;
+  Apontador Ultimo;
 }List;
-
-
-
-
-
 
 
 #endif
