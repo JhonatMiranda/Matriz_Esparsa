@@ -2,7 +2,7 @@
 #include "lista.h"
 
 int main(){
-  Lista x;
+  Matriz_Esparsa x;
   while(mainMenu(&x));
 
   return 0;
