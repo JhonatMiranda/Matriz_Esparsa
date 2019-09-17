@@ -33,7 +33,7 @@ void initMatrix(int rows, int cols, Celula *init){
   }
 }
 
-void readMatrix(){
+/*void readMatrix(){
   Row rows;
   Col cols;
   Item x;
@@ -42,6 +42,6 @@ void readMatrix(){
   while(scanf("%d,%d", &rows, &cols), rows!=-1 && cols!=-1){
 
   }
-
+*/
 
 }
