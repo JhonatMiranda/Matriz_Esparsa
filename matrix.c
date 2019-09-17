@@ -2,34 +2,34 @@
 
 void initMatrix(int rows, int cols, Celula *init){
   int i;
-  struct no *temp;
-  temp = init->right;
+  struct no *atual;
+  atual = init->right;
   //preencho linhas-cabeça
   for(i = 0; i<rows; i++){
     if(i!=rows-1){
-      temp-> right = (struct no*) malloc(sizeof(Celula));
-      temp ->below = temp;
-      temp->i = -1;
-      temp = temp->right;
+      atual-> right = (struct no*) malloc(sizeof(Celula));
+      atual ->below = atual;
+      atual->i = -1;
+      atual = atual->right;
     }
     else{
-      temp->right = init;
-      temp->below = temp;
+      atual->right = init;
+      atual->below = atual;
     }
   }
 
-  temp = init->below;
+  atual = init->below;
   //preencho colunas-cabeça
   for(i = 0; i<cols; i++){
     if(i!=cols-1){
-      temp-> below = (struct no*) malloc(sizeof(Celula));
-      temp->j = -1;
-      temp -> right = temp;
-      temp = temp->below;
+      atual-> below = (struct no*) malloc(sizeof(Celula));
+      atual->j = -1;
+      atual -> right = atual;
+      atual = atual->below;
     }
     else{
-      temp->below = init;
-      temp->right = temp;
+      atual->below = init;
+      atual->right = atual;
     }
   }
 }
