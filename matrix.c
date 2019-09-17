@@ -2,8 +2,7 @@
 
 void initMatrix(int rows, int cols, Celula *init){
   int i;
-
-  struct no *atual = (PCelula) malloc(sizeof(PCelula));
+  struct no *atual = (PCelula) malloc(sizeof(Celula));
   atual = init->right;
   //preencho linhas-cabeça
   for(i = 0; i<rows; i++){
