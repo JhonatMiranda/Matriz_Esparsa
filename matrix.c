@@ -1,8 +1,8 @@
+#include "header.h"
 #include "matrix.h"
-
 void initMatrix(int rows, int cols, Celula *init){
-  int i, j;
-  PCelula atual* = (PCelula) malloc(sizeof(Celula));
+  int i;
+  PCelula atual = (PCelula) malloc(sizeof(Celula));
   atual = init->below;
   //preencho linhas-cabeça
   for(i = 0; i<rows; ++i){
@@ -42,6 +42,5 @@ void initMatrix(int rows, int cols, Celula *init){
   while(scanf("%d,%d", &rows, &cols), rows!=-1 && cols!=-1){
 
   }
-*/
-
 }
+*/

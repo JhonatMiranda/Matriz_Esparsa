@@ -1,6 +1,6 @@
 #include "header.h"
 
-void mainMenu(){
+int mainMenu(Matriz_Esparsa *M){
   int op;
   printf("Digite a operação desejada:\n");
   printf("1-Imprimir matriz\n");
