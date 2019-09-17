@@ -28,10 +28,5 @@ typedef struct{
 
 }Matriz_Esparsa;
 
-typedef struct Lista{
-  Apontador Primeiro;
-  Apontador Ultimo;
-}List;
-
 
 #endif
