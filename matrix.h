@@ -7,7 +7,6 @@
 typedef int Row;
 typedef int Col;
 typedef double Item;
-typedef struct no* Apontador;
 
 typedef struct no{
   struct no *right;
