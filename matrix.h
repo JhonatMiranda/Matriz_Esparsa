@@ -18,8 +18,7 @@ typedef struct no{
   Item x;
 }Celula;
 
-//iniciar todas as células cabeça
-void initMatrix(Row rows, Col cols, Celula *init);
+
 
 void readMatrix();
 
@@ -27,8 +26,12 @@ void readMatrix();
 //struct para matriz esparsa(sujeito a alterações)
 typedef struct{
 
-  Celula init;
+  PCelula first;
+  PCelula lastcol;
+  PCelula lastrow;
 
 }Matriz_Esparsa;
 
+//iniciar todas as células cabeça
+void initMatrix(int rows,int cols,Matriz_Esparsa *M);
 #endif

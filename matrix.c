@@ -1,9 +1,9 @@
 #include "header.h"
 #include "matrix.h"
-void initMatrix(int rows, int cols, Celula *init){
+void initMatrix(int rows, int cols, Matriz_Esparsa *M){
   int i;
   PCelula atual = (PCelula) malloc(sizeof(Celula));
-  atual = init->below;
+  atual = M->init->below;
   //preencho linhas-cabeça
   for(i = 0; i<rows; ++i){
     if(i!=rows-1){
@@ -33,14 +33,16 @@ void initMatrix(int rows, int cols, Celula *init){
   }
 }
 
-/*void readMatrix(){
-  Row rows;
-  Col cols;
-  Item x;
-
-  printf("Digite o número de linhas e o número de colunas separados por vírgula:\n");
-  while(scanf("%d,%d", &rows, &cols), rows!=-1 && cols!=-1){
-
-  }
+//prototipo da função de leitura de matriz *sujeito a alterações
+/*
+void readMatrix(){
+  FILE *arq;
+  Row rows,rinsert;
+  Col cols,cinsert;
+  Celula init;
+  arq=fopen("arquivo.txt","rt");
+  fscanf(arq,"%d,%d",&rows,&cols);
+  initMatrix(&init,rows,cols);
+  fscanf(arq,"%d,%d,%f",&rinsert,&cinsert);
 }
 */
