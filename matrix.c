@@ -1,35 +1,38 @@
 #include "header.h"
 #include "matrix.h"
-void initMatrix(int rows, int cols, Matriz_Esparsa *M){
-  int i;
-  PCelula atual = (PCelula) malloc(sizeof(Celula));
-  atual = M->init->below;
-  //preencho linhas-cabeça
-  for(i = 0; i<rows; ++i){
-    if(i!=rows-1){
-      atual-> below = (PCelula) malloc(sizeof(Celula));
-      atual->i = -1;
-      atual = atual->below;
-    }
-    else{
-      atual->below = init;
-      atual->right = atual;
-    }
+void initMatrix(int rows,int cols,Matriz_Esparsa *M){
+  int i,j;
+  PCelula atual;
+  //cria celula -1 e -1
+  M->first= (PCelula) malloc(sizeof(Celula));
+  M->first->i=-1;
+  M->first->j=-1;
+  M->first->right=M->first;
+  M->first->below=M->first;
+  M->lastrow=M->first;
+  M->lastcol=M->first;
+  printf("%d %d\n",M->first->i,M->first->j);
+  //cria celula cabeça linha
+  for (i=0;i<rows;i++){
+      atual=(PCelula) malloc(sizeof(Celula));
+      M->lastrow->below=atual;
+      M->lastrow=M->lastrow->below;
+      M->lastrow->i=-1;
+      M->lastrow->j=i+1;
+      M->lastrow->below=M->first;
+      M->lastrow->right=M->lastrow;
+      printf("%d %d\n",M->lastrow->i,M->lastrow->j);
   }
-
-  atual = init->right;
-  //preencho colunas-cabeça
-  for(i = 0; i<cols; ++i){
-    if(i!=cols-1){
-      atual-> right = (PCelula) malloc(sizeof(Celula));
-      atual->j = -1;
-      atual->below = atual;
-      atual = atual->right;
-    }
-    else{
-      atual->right = init;
-      atual->below = atual;
-    }
+  //cria celula cabeça coluna
+  for (j=0;j<cols;j++){
+      atual=(PCelula) malloc(sizeof(Celula));
+      M->lastcol->right=atual;
+      M->lastcol=M->lastcol->right;
+      M->lastcol->i=j+1;
+      M->lastcol->j=-1;
+      M->lastcol->below=M->lastcol;
+      M->lastcol->right=M->first;
+      printf("%d %d\n",M->lastcol->i,M->lastcol->j);
   }
 }
 

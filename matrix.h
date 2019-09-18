@@ -10,6 +10,7 @@ typedef int Col;
 typedef double Item;
 typedef struct no* PCelula;
 
+//struct para criar celulas
 typedef struct no{
   PCelula right;
   PCelula below;
@@ -17,11 +18,6 @@ typedef struct no{
   Col j;
   Item x;
 }Celula;
-
-
-
-void readMatrix();
-
 
 //struct para matriz esparsa(sujeito a alterações)
 typedef struct{
