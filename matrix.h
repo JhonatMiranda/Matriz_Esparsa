@@ -30,4 +30,5 @@ typedef struct{
 
 //iniciar todas as células cabeça
 void initMatrix(int rows,int cols,Matriz_Esparsa *M);
+void insertCel(int row,int col,double Item, Matriz_Esparsa *M);
 #endif

@@ -35,9 +35,60 @@ void initMatrix(int rows,int cols,Matriz_Esparsa *M){
       printf("%d %d\n",M->lastcol->i,M->lastcol->j);
   }
 }
-
-//prototipo da função de leitura de matriz *sujeito a alterações
+void insertCel(int row,int col,double Item, Matriz_Esparsa *M){
+    int i,j,k,l;
+    PCelula atual=M->first;
+    PCelula inicio;
+    PCelula novo = (PCelula) malloc(sizeof(Celula));
+    for (i=0;i<=row;i++){
+      if (atual->j != row){
+        atual=atual->below;
+      }
+      else{
+        inicio=atual;
+        atual->right=novo;
+        atual=atual->right;
+        atual->i=row;
+        atual->x=Item;
+        atual->right=inicio;
+        atual->below=atual;
+      }
+    }
+    atual=M->first;
+    for (j=0;j<=col;j++){
+      if(atual->i != col){
+        atual=atual->right;
+      }
+      else{
+        inicio=atual;
+        atual->below=novo;
+        atual=atual->below;
+        atual->j=col;
+        atual->below=inicio;
+      }
+    }
+}
+/*//prototipo de funçao de exibição da matriz *sujeito a alterações
+void printMatriz(Matriz_Esparsa *M){
+  atual=M->first;
+  for (k=0;k<=col;k++){
+    if (atual->i != col){
+      atual=atual->right;
+    }
+    else{
+      for (l=0;l<=row;l++){
+        if (atual->i != row){
+          atual=atual->below;
+        }
+        else{
+          printf("%d %d %lf\n",atual->i,atual->j,atual->x);
+        }
+      }
+    }
+  }
+}
 /*
+//prototipo da função de leitura de matriz *sujeito a alterações
 void readMatrix(){
   FILE *arq;
   Row rows,rinsert;
