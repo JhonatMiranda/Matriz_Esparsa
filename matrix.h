@@ -22,13 +22,12 @@ typedef struct no{
 //struct para matriz esparsa(sujeito a alterações)
 typedef struct{
 
-  PCelula first;
-  PCelula lastcol;
-  PCelula lastrow;
+  PCelula init;
 
-}Matriz_Esparsa;
+}Matriz;
 
 //iniciar todas as células cabeça
-void initMatrix(int rows,int cols,Matriz_Esparsa *M);
-void insertCel(int row,int col,double Item, Matriz_Esparsa *M);
+void initMatrix(Matriz *M, Row rows, Col cols);
+void insertCell(Matriz *M, Row rows, Col cols, Item x);
+void printMatrix(PCelula init, Row rows, Col cols);
 #endif

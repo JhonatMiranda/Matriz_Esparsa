@@ -1,94 +1,116 @@
-#include "header.h"
 #include "matrix.h"
-void initMatrix(int rows,int cols,Matriz_Esparsa *M){
-  int i,j;
+#include "header.h"
+
+
+void motherFunction(PCelula *son, Row row, Col col, Item x){
+  (*son) = (PCelula) malloc(sizeof(Celula));
+  (*son)-> i = row;
+  (*son)-> j = col;
+  (*son)-> x = x;
+  (*son)-> right = *son;
+  (*son)-> below = *son;
+}
+
+
+void initMatrix(Matriz *M, Row rows, Col cols){
+  Row i;
+  Col j;
+
   PCelula atual;
-  //cria celula -1 e -1
-  M->first= (PCelula) malloc(sizeof(Celula));
-  M->first->i=-1;
-  M->first->j=-1;
-  M->first->right=M->first;
-  M->first->below=M->first;
-  M->lastrow=M->first;
-  M->lastcol=M->first;
-  printf("%d %d\n",M->first->i,M->first->j);
+  PCelula novo;
+
+  //creates mother cell
+
+  motherFunction(&(M->init), -1, -1, 0);
+
   //cria celula cabeça linha
-  for (i=0;i<rows;i++){
-      atual=(PCelula) malloc(sizeof(Celula));
-      M->lastrow->below=atual;
-      M->lastrow=M->lastrow->below;
-      M->lastrow->i=-1;
-      M->lastrow->j=i+1;
-      M->lastrow->below=M->first;
-      M->lastrow->right=M->lastrow;
-      printf("%d %d\n",M->lastrow->i,M->lastrow->j);
-  }
+  novo = M->init;
+  for(i=1;i<=rows;i++){
+      motherFunction(&atual , i, -1, 0);
+      novo->below= atual;
+      novo = novo->below;
+      novo->below = M->init;
+    }
   //cria celula cabeça coluna
-  for (j=0;j<cols;j++){
-      atual=(PCelula) malloc(sizeof(Celula));
-      M->lastcol->right=atual;
-      M->lastcol=M->lastcol->right;
-      M->lastcol->i=j+1;
-      M->lastcol->j=-1;
-      M->lastcol->below=M->lastcol;
-      M->lastcol->right=M->first;
-      printf("%d %d\n",M->lastcol->i,M->lastcol->j);
+  novo = M->init;
+  for (j=1 ; j<=cols ;j++){
+      motherFunction(&atual, -1, j, 0);
+      novo->right= atual;
+      novo = novo->right;
+      novo->right = M->init;
   }
 }
-void insertCel(int row,int col,double Item, Matriz_Esparsa *M){
-    int i,j,k,l;
-    PCelula atual=M->first;
-    PCelula inicio;
-    PCelula novo = (PCelula) malloc(sizeof(Celula));
-    for (i=0;i<=row;i++){
-      if (atual->j != row){
-        atual=atual->below;
-      }
-      else{
-        inicio=atual;
-        atual->right=novo;
-        atual=atual->right;
-        atual->i=row;
-        atual->x=Item;
-        atual->right=inicio;
-        atual->below=atual;
-      }
-    }
-    atual=M->first;
-    for (j=0;j<=col;j++){
-      if(atual->i != col){
-        atual=atual->right;
-      }
-      else{
-        inicio=atual;
-        atual->below=novo;
-        atual=atual->below;
-        atual->j=col;
-        atual->below=inicio;
-      }
-    }
+
+void insertCell(Matriz *M, Row row, Col col, Item x){
+  Row i;
+  Col j;
+  PCelula atual;
+  PCelula novo;
+  PCelula armazena;
+
+  motherFunction(&novo, row, col, x);
+
+  atual = M->init;
+  for(i = 0; i<row; i++) atual = atual->below;
+  armazena = atual;
+  while(atual->right != armazena){
+    atual = atual->right;
+  }
+  novo->right = armazena;
+  atual->right = novo;
+
+  atual = M->init;
+  for(j = 0; j<col; j++) atual = atual->right;
+  armazena = atual;
+  while(atual->below != armazena){
+    atual = atual->below;
+  }
+  novo->below = armazena;
+  atual->below = novo;
 }
-/*//prototipo de funçao de exibição da matriz *sujeito a alterações
-void printMatriz(Matriz_Esparsa *M){
-  atual=M->first;
-  for (k=0;k<=col;k++){
-    if (atual->i != col){
-      atual=atual->right;
+
+void printMatrix(PCelula init, Row rows, Col cols){
+  Row i;
+  PCelula aux = init;
+  PCelula auxLine;
+  PCelula iterator= init;
+
+  for(i = 0; i<rows; i++){
+    iterator = iterator->below;
+    aux = iterator;
+    auxLine = aux;
+    while(aux->right != auxLine){
+      aux = aux->right;
+      printf("%.2lf ", aux->x);
     }
-    else{
-      for (l=0;l<=row;l++){
-        if (atual->i != row){
-          atual=atual->below;
-        }
-        else{
-          printf("%d %d %lf\n",atual->i,atual->j,atual->x);
-        }
-      }
-    }
+    printf("\n");
   }
 }
-/*
+
+
+
+/*void printadaViolenta(PCelula init, Row rows, Col cols){
+  Row i;
+  PCelula aux = init;
+  printf("%d %d %lf\n", aux->i, aux->j, aux->x);
+  for(i = 0; i<rows; i++){
+    aux = aux->below;
+    printf("%d %d %lf\n", aux->i, aux->j, aux->x);
+  }
+  printf("%d %d %lf\n", aux->below->i, aux->below->j, aux->below->x);
+  aux = init;
+  for(i = 0; i<cols; i++){
+    aux = aux->right;
+    printf("%d %d %lf\n", aux->i, aux->j, aux->x);
+  }
+  printf("%d %d %lf\n", aux->right->i, aux->right->j, aux->right->x);
+  printf("\n");
+}
+*/
+
+
 //prototipo da função de leitura de matriz *sujeito a alterações
+/*
 void readMatrix(){
   FILE *arq;
   Row rows,rinsert;
