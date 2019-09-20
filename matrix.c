@@ -16,6 +16,9 @@ void initMatrix(Matriz *M, Row rows, Col cols){
   Row i;
   Col j;
 
+  M->rows = rows;
+  M->cols = cols;
+
   PCelula atual;
   PCelula novo;
 
@@ -69,15 +72,15 @@ void insertCell(Matriz *M, Row row, Col col, Item x){
   atual->below = novo;
 }
 
-void printMatrix(PCelula init, Row rows, Col cols){
+void printMatrix(PCelula init, Row rows){
   Row i;
   PCelula aux = init;
   PCelula auxLine;
-  PCelula iterator= init;
+  PCelula iterador= init;
 
   for(i = 0; i<rows; i++){
-    iterator = iterator->below;
-    aux = iterator;
+    iterador = iterador->below;
+    aux = iterador;
     auxLine = aux;
     while(aux->right != auxLine){
       aux = aux->right;

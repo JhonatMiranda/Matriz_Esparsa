@@ -1,8 +1,10 @@
-#include "header.h"
+#include "matrix.h"
 
 int main(){
 
-  while(mainMenu());
+  Matriz M;
+
+  while(mainMenu(&M));
 
   return 0;
 }

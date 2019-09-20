@@ -1,10 +1,9 @@
 #include "header.h"
 #include "matrix.h"
 
-int mainMenu(){
-  Matriz M;
-  Row row, rows;
-  Col col, cols;
+int mainMenu(Matriz *M){
+  Row rows;
+  Col cols;
   Item x;
   int op;
 
@@ -22,20 +21,20 @@ switch(op){
     printf("Digite abaixo o número de colunas que deseja ter em sua matriz:\n");
     scanf("%d", &cols);
     printf("\n");
-    initMatrix(&M, rows, cols);
+    initMatrix(M, rows, cols);
     break;
   case 2:
     printf("\nDigite abaixo a linha em que deseja inserir o item:\n");
-    scanf("%d", &row);
+    scanf("%d", &rows);
     printf("Digite abaixo a coluna em que deseja inserir o item:\n");
-    scanf("%d", &col);
+    scanf("%d", &cols);
     printf("Digite abaixo o valor do item em que deseja inserir:\n");
     scanf("%d", &x);
     printf("\n");
-    insertCell(&M, row, col, x);
+    insertCell(M, rows, cols, x);
     break;
   case 3:
-    printMatrix(M.init, rows, cols);
+    printMatrix((*M).init , (*M).rows);
     break;
   case 0:
     return 0;

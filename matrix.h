@@ -23,11 +23,13 @@ typedef struct no{
 typedef struct{
 
   PCelula init;
+  Row rows;
+  Col cols;
 
 }Matriz;
 
 //iniciar todas as células cabeça
 void initMatrix(Matriz *M, Row rows, Col cols);
 void insertCell(Matriz *M, Row rows, Col cols, Item x);
-void printMatrix(PCelula init, Row rows, Col cols);
+void printMatrix(PCelula init, Row rows);
 #endif
