@@ -18,6 +18,9 @@ int main(){
       printf("Digite o nome do arquivo:" );
       scanf("%s",nomeArq );
       ptrFile=fopen(nomeArq,"r");
+      if(ptrFile==NULL){
+        printf("ARQUIVO NÃO ENCONTRADO.\n" );
+      }else{
       while (!feof(ptrFile)) {
           if (cont==0){
             fscanf(ptrFile,"%d,%d",&rows,&cols);
@@ -32,7 +35,8 @@ int main(){
          }
       }
       fclose(ptrFile);
-    }else if(menu==2){
+    }
+  }else if(menu==2){
       printMatrix(M.init,rows);
     }
     menu=mainMenu();
