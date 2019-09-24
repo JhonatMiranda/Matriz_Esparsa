@@ -5,6 +5,6 @@
 #ifndef HEADER_H_
 #define HEADER_H_
 
-int mainMenu();
+void mainMenu();
 
 #endif

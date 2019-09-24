@@ -72,16 +72,26 @@ void insertCell(Matriz *M, Row row, Col col, Item x){
   atual->below = novo;
 }
 
-void printMatrix(PCelula init, Row rows){
+void printMatrix(PCelula init, Row rows, Col cols){
   Row i;
+  Col j;
   PCelula aux = init;
   PCelula auxLine;
   PCelula iterador= init;
+  int deltaLeft, deltaRight;
 
   for(i = 0; i<rows; i++){
     iterador = iterador->below;
     aux = iterador;
     auxLine = aux;
+
+    if(aux->right == auxLine){
+      for(j =0; j<cols; j++) printf("0.00 ");
+    }
+    else if(aux->j != 1 && aux->i != -1){
+      deltaLeft = aux->j - 1;
+      for(j=0; j<deltaLeft; j++) printf("0.00 ");
+    }
     while(aux->right != auxLine){
       aux = aux->right;
       printf("%.2lf ", aux->x);
@@ -90,38 +100,28 @@ void printMatrix(PCelula init, Row rows){
   }
 }
 
+void inputArquivo(Matriz *M, FILE *ptrFile, char nomeArq[]){
+  int cont=0;
+  Row rows;
+  Col cols;
+  Item x;
 
-
-/*void printadaViolenta(PCelula init, Row rows, Col cols){
-  Row i;
-  PCelula aux = init;
-  printf("%d %d %lf\n", aux->i, aux->j, aux->x);
-  for(i = 0; i<rows; i++){
-    aux = aux->below;
-    printf("%d %d %lf\n", aux->i, aux->j, aux->x);
+  ptrFile=fopen(nomeArq,"r");
+  if(ptrFile==NULL){
+    printf("ARQUIVO NÃO ENCONTRADO.\n" );
+  }else{
+    while(!feof(ptrFile)) {
+      if (cont==0){
+        fscanf(ptrFile, "%d,%d", &rows, &cols);
+        initMatrix(M, rows, cols);
+        cont++;
+      }else{
+        fscanf(ptrFile, "%d,%d,%lf" ,&rows ,&cols , &x);
+        if(x!=0.0){
+          insertCell(M, rows, cols, x);
+        }
+      }
+    }
+    fclose(ptrFile);
   }
-  printf("%d %d %lf\n", aux->below->i, aux->below->j, aux->below->x);
-  aux = init;
-  for(i = 0; i<cols; i++){
-    aux = aux->right;
-    printf("%d %d %lf\n", aux->i, aux->j, aux->x);
-  }
-  printf("%d %d %lf\n", aux->right->i, aux->right->j, aux->right->x);
-  printf("\n");
 }
-*/
-
-
-//prototipo da função de leitura de matriz *sujeito a alterações
-/*
-void readMatrix(){
-  FILE *arq;
-  Row rows,rinsert;
-  Col cols,cinsert;
-  Celula init;
-  arq=fopen("arquivo.txt","rt");
-  fscanf(arq,"%d,%d",&rows,&cols);
-  initMatrix(&init,rows,cols);
-  fscanf(arq,"%d,%d,%f",&rinsert,&cinsert);
-}
-*/

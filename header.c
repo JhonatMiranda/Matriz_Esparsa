@@ -1,28 +1,39 @@
 #include "header.h"
 #include "matrix.h"
 
-int mainMenu(){
-  int op;
-  printf("Digite a operação desejada:\n");
-  printf("1 - Inserir item na matriz esparsa\n");
-  printf("2 - Imprimir matriz esparsa\n");
-  printf("0 - Sair do programa\n");
-  scanf("%d", &op);
+void mainMenu(Matriz *M){
+  Row rows;
+  Col cols;
+  Item x;
+  int op = -1;
+  char nomeArq[50];
+  FILE *ptrFile;
 
-if(op==1){
+  while(op){
 
-  return 1;
+    printf("Digite a operação desejada:\n");
+    printf("1 - Receber matriz esparsa de um arquivo\n");
+    printf("2 - Imprimir matriz esparsa\n");
+    printf("0 - Sair do programa\n");
+    scanf("%d", &op);
 
-}else if(op==2){
-
-  return 2;
-
-}else if(op==0){
-
-  return 0;
-
-}else{
-  printf("Opção inválida, escolha novamente.\n" );
-  mainMenu();
+    switch(op){
+      case 1:
+        printf("\nDigite abaixo o seu arquivo \"[nome do arquivo].txt\":\n");
+        scanf("%s", nomeArq);
+        printf("\n");
+        inputArquivo(M, ptrFile, nomeArq);
+        break;
+      case 2:
+        printMatrix((*M).init , (*M).rows, (*M).cols);
+        break;
+      case 0:
+        printf("\nPrograma Encerrado\n");
+        return;
+        break;
+      default:
+        printf("\nOperação inválida, digite outro número\n");
+        break;
+    }
   }
 }
