@@ -115,6 +115,8 @@ void inputArquivo(Matriz *M, FILE *ptrFile, char nomeArq[]){
   int cont=0;
   Row rows;
   Col cols;
+  Row rowant=0;
+  Col colant=0;
   Item x;
 
   ptrFile=fopen(nomeArq,"r");
@@ -128,6 +130,11 @@ void inputArquivo(Matriz *M, FILE *ptrFile, char nomeArq[]){
         cont++;
       }else{
         fscanf(ptrFile, "%d,%d,%lf" ,&rows ,&cols , &x);
+        if (rowant == rows && colant == cols) break;
+        else{
+          rowant=rows;
+          colant=cols;
+        }
         if(x!=0.0){
           insertCell(M, rows, cols, x);
         }
