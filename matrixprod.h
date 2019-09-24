@@ -31,8 +31,8 @@ typedef struct{
 
 //iniciar todas as células cabeça
 void inputArquivo(Matriz *M, FILE *ptrFile, char nomeArq[]);
-void motherFunction(PCelula *son, Row row, Col col,int dia, int mes,int ano, Quant quant);
+void motherFunction(PCelula *son, Row row, Col col,int dia, int mes,int ano, Quant quant,int *cont);
 void initMatrix(Matriz *M, Row rows, Col cols);
-void insertCell(Matriz *M, Row row, Col col,int dia, int mes,int ano,Quant quant);
+void insertCell(Matriz *M, Row row, Col col,int dia, int mes,int ano,Quant quant,int *cont);
 void printMatrix(PCelula init, Row rows, Col cols);
 #endif
