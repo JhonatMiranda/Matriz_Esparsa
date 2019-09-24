@@ -1,23 +1,5 @@
 #include "listacompras.h"
-/*
-int main(){
-  ListaProd lista;
-  char data[10];
-  int quant,soma;
-  initList(&lista);
-  while(1){
-    printf("Digite a quantidade comprada:\n");
-    scanf("%d",&quant);
-    if (quant==0)break;
-    printf("Digite a data:\n");
-    scanf("%s",data);
-    insertCompra(&lista,data,quant);
-  }
-  printList(&lista);
-  soma=sumOfQuant(&lista);
-  clearList(&lista);
-}
-*/
+
 //função inicia lista de produtos
 void initList(ListaProd *lista){
   PCelulaP atual;
