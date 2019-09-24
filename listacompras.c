@@ -12,7 +12,9 @@ void initList(ListaProd *lista){
 void insertCompra(ListaProd *lista,int dia, int mes,int ano,int quant){
   PCelulaP atual=lista->last;
   PCelulaP novo=(PCelulaP) malloc(sizeof(CelulaP));
-  while(atual->next != NULL) atual=atual->next;
+  while(atual->next != NULL){
+   atual=atual->next;
+  }
   atual->next=novo;
   atual=atual->next;
   atual->dia=dia;

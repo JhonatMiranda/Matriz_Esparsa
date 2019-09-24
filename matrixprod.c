@@ -2,15 +2,20 @@
 
 void motherFunction(PCelula *son, Row row, Col col,int dia, int mes,int ano, Quant quant,int *cont){
   ListaProd compra;
-  //verificar se ja nn tem nunhuma lista criada naquela celula
-  if (cont==0){
-    initList(&compra);
+  //verificar se nn é uma celula cabeca
+  if(row != -1 && col != -1){
+    //verificar se ja nn tem nunhuma lista criada naquela celula
+    if (cont==0){
+      initList(&compra);
+    }
   }
   (*son) = (PCelula) malloc(sizeof(Celula));
   (*son)-> i = row;
   (*son)-> j = col;
-  insertCompra(&compra, dia, mes, ano, quant);
-  (*son)-> x = compra;
+  if (row != -1 && col != -1){
+    insertCompra(&compra, dia, mes, ano, quant);
+    (*son)-> x = compra;
+  }
   (*son)-> right = *son;
   (*son)-> below = *son;
 }
@@ -136,17 +141,16 @@ void inputArquivo(Matriz *M, FILE *ptrFile, char nomeArq[]){
         cont++;
       }else{
         fscanf(ptrFile, "%d,%d%c" ,&rows ,&cols,&aux);
-        while(aux!=10){
-          fscanf(ptrFile,"%d/%d/%d %d",&dia,&mes,&ano,&x);
-          if(x!=0.0){
-            insertCell(M,rows,cols,dia,mes,ano,x,&cont2);
-        }
         if (rowant == rows && colant == cols) break;
         else{
           rowant=rows;
           colant=cols;
         }
-
+        while(aux!=10){
+          fscanf(ptrFile,"%d/%d/%d %d",&dia,&mes,&ano,&x);
+          if(x!=0.0){
+            insertCell(M,rows,cols,dia,mes,ano,x,&cont2);
+          }
         }
       }
     }
