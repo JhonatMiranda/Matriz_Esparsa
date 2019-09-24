@@ -88,16 +88,27 @@ void printMatrix(PCelula init, Row rows, Col cols){
     if(aux->right == auxLine){
       for(j =0; j<cols; j++) printf("0.00 ");
     }
-    else if(aux->j != 1 && aux->i != -1){
-      deltaLeft = aux->j - 1;
-      for(j=0; j<deltaLeft; j++) printf("0.00 ");
-    }
-    while(aux->right != auxLine){
-      aux = aux->right;
-      printf("%.2lf ", aux->x);
+    else{
+      if(aux->right->j != 1 && aux->right->j != -1){
+        deltaLeft = aux->right->j - 1;
+        for(j=0; j<deltaLeft; j++) printf("0.00 ");
+      }
+      while(aux->right != auxLine){
+        aux = aux->right;
+        printf("%.2lf ", aux->x);
+        if(aux->right->j == -1){
+          deltaRight = abs(cols - aux->j);
+          for(j=0; j<deltaRight; j++) printf("0.00 ");
+        }
+        if(aux->right->j != (aux->j)+1 && aux->right->j != -1){
+          deltaRight = abs(aux->right->j - aux->j) - 1;
+          for(j=0; j<deltaRight; j++) printf("0.00 ");
+        }
+      }
     }
     printf("\n");
   }
+  printf("\n");
 }
 
 void inputArquivo(Matriz *M, FILE *ptrFile, char nomeArq[]){
