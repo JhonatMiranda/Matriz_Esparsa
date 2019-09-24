@@ -7,7 +7,7 @@ void motherFunction(PCelula *son, Row row, Col col,int dia, int mes,int ano, Qua
   (*son)-> i = row;
   (*son)-> j = col;
   insertCompra(&compra, dia, mes, ano, quant);
-  (*son)-> x = &compra;
+  (*son)-> x = compra;
   (*son)-> right = *son;
   (*son)-> below = *son;
 }
@@ -94,7 +94,7 @@ void printMatrix(PCelula init, Row rows, Col cols){
       }
       while(aux->right != auxLine){
         aux = aux->right;
-        printList(aux->x);
+        printList(&(aux->x));
         if(aux->right->j == -1){
           deltaRight = abs(cols - aux->j);
           for(j=0; j<deltaRight; j++) printf("0.00 ");
@@ -108,4 +108,44 @@ void printMatrix(PCelula init, Row rows, Col cols){
     printf("\n");
   }
   printf("\n");
+}
+void inputArquivo(Matriz *M, FILE *ptrFile, char nomeArq[]){
+  int cont=0;
+  Row rows;
+  Col cols;
+  Row rowant=0;
+  Col colant=0;
+  int x;
+  char aux;
+  int dia;
+  int mes;
+  int ano;
+
+  ptrFile=fopen(nomeArq,"r");
+  if(ptrFile==NULL){
+    printf("ARQUIVO NÃO ENCONTRADO.\n" );
+  }else{
+    while(!feof(ptrFile)) {
+      if (cont==0){
+        fscanf(ptrFile, "%d,%d", &rows, &cols);
+        initMatrix(M, rows, cols);
+        cont++;
+      }else{
+        fscanf(ptrFile, "%d,%d%c" ,&rows ,&cols,&aux);
+        while(aux!=10){
+          fscanf(ptrFile,"%d/%d/%d %d",&dia,&mes,&ano,&x);
+          if(x!=0.0){
+            //insertCell
+        }
+        if (rowant == rows && colant == cols) break;
+        else{
+          rowant=rows;
+          colant=cols;
+        }
+
+        }
+      }
+    }
+    fclose(ptrFile);
+  }
 }

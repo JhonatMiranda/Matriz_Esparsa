@@ -8,7 +8,7 @@
 typedef int Row;
 typedef int Col;
 typedef int Quant;
-typedef ListaProd* Item;
+typedef ListaProd Item;
 typedef struct no* PCelula;
 
 //struct para criar celulas
