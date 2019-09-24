@@ -30,7 +30,8 @@ typedef struct{
 }Matriz;
 
 //iniciar todas as células cabeça
-void motherFunction(PCelula *son, Row row, Col col, Data data, Quant quant);
+void inputArquivo(Matriz *M, FILE *ptrFile, char nomeArq[]);
+void motherFunction(PCelula *son, Row row, Col col,int dia, int mes,int ano, Quant quant);
 void initMatrix(Matriz *M, Row rows, Col cols);
 void insertCell(Matriz *M, Row row, Col col,int dia, int mes,int ano,Quant quant);
 void printMatrix(PCelula init, Row rows, Col cols);

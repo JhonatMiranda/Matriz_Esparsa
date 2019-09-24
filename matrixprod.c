@@ -1,10 +1,13 @@
 #include "matrixprod.h"
 
 void motherFunction(PCelula *son, Row row, Col col,int dia, int mes,int ano, Quant quant){
+  ListaProd compra;
+  initList(&compra);
   (*son) = (PCelula) malloc(sizeof(Celula));
   (*son)-> i = row;
   (*son)-> j = col;
-  (*son)-> x = insertCompra((*son)->x, &data, quant);
+  insertCompra(&compra, dia, mes, ano, quant);
+  (*son)-> x = &compra;
   (*son)-> right = *son;
   (*son)-> below = *son;
 }
@@ -22,12 +25,12 @@ void initMatrix(Matriz *M, Row rows, Col cols){
 
   //creates mother cell
 
-  motherFunction(&(M->init), -1, -1, 0, 0);
+  motherFunction(&(M->init), -1, -1, 0, 0, 0, 0);
 
   //cria celula cabeça linha
   novo = M->init;
   for(i=1;i<=rows;i++){
-      motherFunction(&atual , i, -1, 0, 0);
+      motherFunction(&atual , i, -1, 0, 0, 0, 0);
       novo->below= atual;
       novo = novo->below;
       novo->below = M->init;
@@ -35,20 +38,20 @@ void initMatrix(Matriz *M, Row rows, Col cols){
   //cria celula cabeça coluna
   novo = M->init;
   for (j=1 ; j<=cols ;j++){
-      motherFunction(&atual, -1, j, 0, 0);
+      motherFunction(&atual, -1, j, 0, 0, 0, 0);
       novo->right= atual;
       novo = novo->right;
       novo->right = M->init;
   }
 }
-void insertCell(Matriz *M, Row row, Col col,Data data,Quant quant){
+void insertCell(Matriz *M, Row row, Col col,int dia,int mes,int ano,Quant quant){
   Row i;
   Col j;
   PCelula atual;
   PCelula novo;
   PCelula armazena;
 
-  motherFunction(&novo, row, col, data, quant);
+  motherFunction(&novo, row, col, dia, mes, ano, quant);
 
   atual = M->init;
   for(i = 0; i<row; i++) atual = atual->below;
@@ -91,7 +94,7 @@ void printMatrix(PCelula init, Row rows, Col cols){
       }
       while(aux->right != auxLine){
         aux = aux->right;
-        printf("%.2lf ", aux->x);
+        printList(aux->x);
         if(aux->right->j == -1){
           deltaRight = abs(cols - aux->j);
           for(j=0; j<deltaRight; j++) printf("0.00 ");

@@ -8,7 +8,9 @@
 typedef struct Cel* PCelulaP;
 
 typedef struct Cel{
-  char  data[10];
+  int dia;
+  int mes;
+  int ano;
   int quant;
   PCelulaP next;
 }CelulaP;
@@ -21,7 +23,7 @@ typedef struct Lista{
 //definindo funções
 
 void initList(ListaProd *lista);
-void insertCompra(ListaProd *lista,char *data,int quant);
+void insertCompra(ListaProd *lista,int dia, int mes,int ano,int quant);
 void printList(ListaProd *lista);
 int sumOfQuant(ListaProd *lista);
 void clearList(ListaProd *lista);

@@ -1,5 +1,5 @@
 #include "header.h"
-#include "matrix.h"
+#include "matrixprod.h"
 
 void mainMenu(Matriz *M){
   Row rows;

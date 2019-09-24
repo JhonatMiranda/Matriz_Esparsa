@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "matrix.h"
+#include "matrixprod.h"
 
 #ifndef HEADER_H_
 #define HEADER_H_
