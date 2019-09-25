@@ -28,15 +28,27 @@ void printList(ListaProd *lista){
   }
 }
 //função que retorna a soma da lista
-int sumOfQuant(ListaProd *lista){
+int sumOfProduct(ListaProd *lista){
   int soma=0;
   PCelulaP atual=lista->first;
-  while(atual->next != NULL){
-    soma+=atual->quant;
-    atual=atual->next;
+  while(atual != NULL){
+    soma += atual -> quant;
+    atual = atual->next;
   }
   return soma;
 }
+
+int sumOfClient(ListaProd *lista){
+  int soma=0;
+  PCelulaP atual=lista->first;
+  atual = atual->next;
+  while(atual != NULL){
+    soma++;
+    atual = atual->next;
+  }
+  return soma;
+}
+
 //função que libera a lista
 void clearList(ListaProd *lista){
   PCelulaP apagar;

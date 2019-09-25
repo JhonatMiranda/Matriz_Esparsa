@@ -27,7 +27,7 @@ void initMatrix(Matriz *M, Row rows, Col cols){
 
   motherFunction(&(M->init), -1, -1, 0, 0, 0, 0, 0);
 
-  //cria celula cabeça linha
+  //cria celula cabeça rows
   novo = M->init;
   for(i=1;i<=rows;i++){
       motherFunction(&atual , i, -1, 0, 0, 0, 0, 0);
@@ -35,7 +35,7 @@ void initMatrix(Matriz *M, Row rows, Col cols){
       novo = novo->below;
       novo->below = M->init;
     }
-  //cria celula cabeça coluna
+  //cria celula cabeça cols
   novo = M->init;
   for (j=1 ; j<=cols ;j++){
       motherFunction(&atual, -1, j, 0, 0, 0, 0, 0);
@@ -75,23 +75,23 @@ void printMatrix(PCelula init, Row rows, Col cols){
   Col j;
   PCelula aux = init;
   PCelula auxLine;
-  PCelula iterador= init;
-
+  PCelula iterador = init;
   for(i = 0; i<rows; i++){
     iterador = iterador->below;
     aux = iterador;
     auxLine = aux;
-
-    printf("Produto %d:\n\n", i+1);
-    while(aux->right != auxLine){
-      aux = aux->right;
-      printf("Cliente %d:\n", aux->i);
-      printList(&(aux->x));
-      printf("\n");
+    if (aux->right != aux){
+      printf("Cliente %d:\n", i+1);
+      printf("--------------------------------\n");
+      while(aux->right != auxLine){
+        aux = aux->right;
+        printf("Produto %d:\n", aux->j);
+        printList(&(aux->x));
+        printf("\n");
+      }
+      printf("--------------------------------\n");
     }
-    printf("--------------------------------\n");
   }
-  printf("\n");
 }
 
 void inputArquivo(Matriz *M, FILE *ptrFile, char nomeArq[]){
@@ -133,17 +133,74 @@ void inputArquivo(Matriz *M, FILE *ptrFile, char nomeArq[]){
     fclose(ptrFile);
   }
 }
-void quantCPProduto(Matriz *M,Row linha){
+void quantCPProduto(Matriz *M, Col cols){
   PCelula atual=M->init;
   PCelula aux;
   int quant=0;
-  while(atual->below->i != linha){
+  while(atual->j != cols){
+    atual=atual->right;
+  }
+  aux=atual;
+  atual = atual->below;
+  while(atual->i != aux->i){
+    quant+= sumOfProduct(&(atual->x));
+    atual=atual->below;
+  }
+  printf("O Produto %d foi comprado %d vezes.\n",cols, quant);
+}
+
+void quantCPCliente(Matriz *M, Row rows){
+  PCelula atual=M->init;
+  PCelula aux;
+  int quant=0;
+  while(atual->i != rows){
     atual=atual->below;
   }
   aux=atual;
-  while(atual->right->j != aux->j ){
+  atual = atual->right;
+  while(atual->j != aux->j){
+    quant+= sumOfClient(&(atual->x));
     atual=atual->right;
-    quant=sumOfQuant(&(atual->x));
   }
-  printf("%d\n",quant);
+  printf("O Cliente %d fez: %d compras.\n",rows, quant);
+}
+void delasocaMatriz(Matriz *M){
+  Col j;
+  PCelula atual = M->init;
+  PCelula kill;
+  PCelula atualLine;
+  //desaloca itens
+  for(j = 0; j< M->cols; j++){
+    atual = atual->right;
+    atualLine = atual;
+    atual = atual->below;
+    atualLine->below = atualLine;
+    while(atual!= atualLine){
+      kill = atual;
+      atual = atual->below;
+      clearList(&(kill->x));
+      free(kill);
+    }
+  }
+  //desaloca células-cabeça coluna
+  atual = M->init;
+  atual = atual->right;
+  while(atual != M->init){
+    kill = atual;
+    atual = atual->right;
+    free(kill);
+  }
+  //desaloca células-cabeça linha
+  atual = M->init;
+  atual = atual->below;
+  while(atual != M->init){
+    kill = atual;
+    atual = atual->below;
+    free(kill);
+  }
+  atual = M->init;
+  atual->right = M->init;
+  atual->below = M->init;
+  M->rows = 0;
+  M->cols = 0;
 }

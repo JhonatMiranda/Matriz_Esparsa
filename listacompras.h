@@ -25,8 +25,9 @@ typedef struct Lista{
 void initList(ListaProd *lista);
 void insertCompra(ListaProd *lista,int dia, int mes,int ano,int quant);
 void printList(ListaProd *lista);
-int sumOfQuant(ListaProd *lista);
+int sumOfProduct(ListaProd *lista);
 void clearList(ListaProd *lista);
+int sumOfClient(ListaProd *lista);
 
 
 #endif

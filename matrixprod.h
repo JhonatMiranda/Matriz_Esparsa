@@ -35,5 +35,7 @@ void motherFunction(PCelula *son, Row row, Col col,int dia, int mes,int ano, Qua
 void initMatrix(Matriz *M, Row rows, Col cols);
 void insertCell(Matriz *M, Row row, Col col,int dia, int mes,int ano,Quant quant,int *cont);
 void printMatrix(PCelula init, Row rows, Col cols);
-void quantCPProduto(Matriz *M,Row linha);
+void quantCPProduto(Matriz *M, Col cols);
+void quantCPCliente(Matriz *M, Row rows);
+void delasocaMatriz(Matriz *M);
 #endif
