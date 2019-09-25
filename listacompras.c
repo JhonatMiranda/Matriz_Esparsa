@@ -1,10 +1,9 @@
 #include "listacompras.h"
 //função inicia lista de produtos
 void initList(ListaProd *lista){
-  PCelulaP atual;
-  lista->first=(PCelulaP) malloc(sizeof(CelulaP));
-  lista->last=lista->first;
-  atual=lista->first;
+  PCelulaP atual=(PCelulaP) malloc(sizeof(CelulaP));
+  lista->last=atual;
+  lista->first=atual;
   atual->quant=0;
   atual->next=NULL;
 }
@@ -12,16 +11,13 @@ void initList(ListaProd *lista){
 void insertCompra(ListaProd *lista,int dia, int mes,int ano,int quant){
   PCelulaP atual=lista->last;
   PCelulaP novo=(PCelulaP) malloc(sizeof(CelulaP));
-  while(atual->next != NULL){
-   atual=atual->next;
-  }
+  novo->dia=dia;
+  novo->mes=mes;
+  novo->ano=ano;
+  novo->quant=quant;
+  novo->next=NULL;
   atual->next=novo;
-  atual=atual->next;
-  atual->dia=dia;
-  atual->mes=mes;
-  atual->ano=ano;
-  atual->quant=quant;
-  atual->next=NULL;
+  lista->last=novo;
 }
 //função printa a lista
 void printList(ListaProd *lista){
@@ -36,9 +32,8 @@ int sumOfQuant(ListaProd *lista){
   int soma=0;
   PCelulaP atual=lista->first;
   while(atual->next != NULL){
-    atual=atual->next;
-    printf("%d\n",atual->quant);
     soma+=atual->quant;
+    atual=atual->next;
   }
   return soma;
 }

@@ -1,21 +1,13 @@
 #include "matrixprod.h"
 
-void motherFunction(PCelula *son, Row row, Col col,int dia, int mes,int ano, Quant quant,int *cont){
+void motherFunction(PCelula *son, Row row, Col col, int dia, int mes, int ano, Quant quant, int *cont){
   ListaProd compra;
-  //verificar se nn é uma celula cabeca
-  if(row != -1 && col != -1){
-    //verificar se ja nn tem nunhuma lista criada naquela celula
-    if (cont==0){
-      initList(&compra);
-    }
-  }
+  initList(&compra);
   (*son) = (PCelula) malloc(sizeof(Celula));
   (*son)-> i = row;
   (*son)-> j = col;
-  if (row != -1 && col != -1){
-    insertCompra(&compra, dia, mes, ano, quant);
-    (*son)-> x = compra;
-  }
+  insertCompra(&compra, dia, mes, ano, quant);
+  (*son)-> x = compra;
   (*son)-> right = *son;
   (*son)-> below = *son;
 }
@@ -58,9 +50,7 @@ void insertCell(Matriz *M, Row row, Col col,int dia,int mes,int ano,Quant quant,
   PCelula atual;
   PCelula novo;
   PCelula armazena;
-
   motherFunction(&novo, row, col, dia, mes, ano, quant, cont);
-
   atual = M->init;
   for(i = 0; i<row; i++) atual = atual->below;
   armazena = atual;
@@ -102,7 +92,9 @@ void printMatrix(PCelula init, Row rows, Col cols){
       }
       while(aux->right != auxLine){
         aux = aux->right;
+        printf("cliente %d\n", aux->i);
         printList(&(aux->x));
+        printf("\n");
         if(aux->right->j == -1){
           deltaRight = abs(cols - aux->j);
           for(j=0; j<deltaRight; j++) printf("0.00 ");
@@ -129,7 +121,6 @@ void inputArquivo(Matriz *M, FILE *ptrFile, char nomeArq[]){
   int mes;
   int ano;
 
-
   ptrFile=fopen(nomeArq,"r");
   if(ptrFile==NULL){
     printf("ARQUIVO NÃO ENCONTRADO.\n" );
@@ -146,14 +137,28 @@ void inputArquivo(Matriz *M, FILE *ptrFile, char nomeArq[]){
           rowant=rows;
           colant=cols;
         }
-        while(aux!=10){
-          fscanf(ptrFile,"%d/%d/%d %d",&dia,&mes,&ano,&x);
-          if(x!=0.0){
-            insertCell(M,rows,cols,dia,mes,ano,x,&cont2);
+        while(aux != 10){
+          fscanf(ptrFile,"%d/%d/%d %d%c",&dia,&mes,&ano,&x,&aux);
+          if(x!=0){
+            insertCell(M, rows, cols, dia, mes, ano, x, &cont2);
           }
         }
       }
     }
     fclose(ptrFile);
   }
+}
+void quantCPProduto(Matriz *M,Row linha){
+  PCelula atual=M->init;
+  PCelula aux;
+  int quant=0;
+  while(atual->below->i != linha){
+    atual=atual->below;
+  }
+  aux=atual;
+  while(atual->right->j != aux->j ){
+    atual=atual->right;
+    quant=sumOfQuant(&(atual->x));
+  }
+  printf("%d\n",quant);
 }
