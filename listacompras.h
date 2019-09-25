@@ -5,9 +5,9 @@
 #define LISTACOMPRAS_H_
 
 //definindo struct
-typedef struct Cel* PCelulaP;
+typedef struct Cell* PCelulaP;
 
-typedef struct Cel{
+typedef struct Cell{
   int dia;
   int mes;
   int ano;

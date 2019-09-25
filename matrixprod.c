@@ -69,46 +69,31 @@ void insertCell(Matriz *M, Row row, Col col,int dia,int mes,int ano,Quant quant,
   novo->below = armazena;
   atual->below = novo;
 }
+
 void printMatrix(PCelula init, Row rows, Col cols){
   Row i;
   Col j;
   PCelula aux = init;
   PCelula auxLine;
   PCelula iterador= init;
-  int deltaLeft, deltaRight;
 
   for(i = 0; i<rows; i++){
     iterador = iterador->below;
     aux = iterador;
     auxLine = aux;
 
-    if(aux->right == auxLine){
-      for(j =0; j<cols; j++) printf("0.00 ");
+    printf("Produto %d:\n\n", i+1);
+    while(aux->right != auxLine){
+      aux = aux->right;
+      printf("Cliente %d:\n", aux->i);
+      printList(&(aux->x));
+      printf("\n");
     }
-    else{
-      if(aux->right->j != 1 && aux->right->j != -1){
-        deltaLeft = aux->right->j - 1;
-        for(j=0; j<deltaLeft; j++) printf("0.00 ");
-      }
-      while(aux->right != auxLine){
-        aux = aux->right;
-        printf("cliente %d\n", aux->i);
-        printList(&(aux->x));
-        printf("\n");
-        if(aux->right->j == -1){
-          deltaRight = abs(cols - aux->j);
-          for(j=0; j<deltaRight; j++) printf("0.00 ");
-        }
-        if(aux->right->j != (aux->j)+1 && aux->right->j != -1){
-          deltaRight = abs(aux->right->j - aux->j) - 1;
-          for(j=0; j<deltaRight; j++) printf("0.00 ");
-        }
-      }
-    }
-    printf("\n");
+    printf("--------------------------------\n");
   }
   printf("\n");
 }
+
 void inputArquivo(Matriz *M, FILE *ptrFile, char nomeArq[]){
   int cont=0,cont2=0;
   Row rows;
